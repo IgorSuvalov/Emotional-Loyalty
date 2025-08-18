@@ -1,15 +1,14 @@
 {
   "knobs": {
     "spend": 0.4,
-    "freq": 0.3,
-    "engage": 0.3
+    "engage": 0.6
   },
   "lambda": 0.7,
   "K": 4,
   "thresholds": {
-    "Platinum": 85.77402402340118,
-    "Gold": 69.89486716731533,
-    "Silver": 48.22526006020823,
+    "Platinum": 94.82429429361571,
+    "Gold": 76.04340240982032,
+    "Silver": 38.42162152274865,
     "Regular": -Infinity
   }
 }
