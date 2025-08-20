@@ -1,4 +1,3 @@
-from src.preprocessing import clean_data
 from src.scoring import run_loyalty_model
 
 import streamlit as st
@@ -15,8 +14,6 @@ def load_data():
     csv_path = os.path.join("data", "customer-shopping-latest-trends-dataset", "shopping_trends.csv")
     df = pd.read_csv(csv_path)
     return df
-
-clean_df = clean_data(load_data())
 
 left_col, mid_col, right_col = st.columns(3)
 
