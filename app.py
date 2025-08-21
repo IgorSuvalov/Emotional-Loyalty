@@ -7,6 +7,7 @@ import os
 st.set_page_config(page_title='Loyalty Model Interactive Demo', page_icon="shark", layout="wide")
 
 st.title("Interactive Loyalty Model Demo", )
+st.markdown("[GitHub page](https://github.com/IgorSuvalov/Emotional-Loyalty)")
 st.divider()
 
 @st.cache_data
