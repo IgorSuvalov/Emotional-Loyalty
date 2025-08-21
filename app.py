@@ -12,8 +12,7 @@ st.divider()
 @st.cache_data
 def load_data():
     app_dir = os.path.dirname(os.path.abspath(__file__))
-    root = os.path.dirname(app_dir)
-    csv_path = os.path.join(root, "customer-shopping-latest-trends-dataset", "shopping_trends.csv")
+    csv_path = os.path.join(app_dir, "customer-shopping-latest-trends-dataset", "shopping_trends.csv")
     df = pd.read_csv(csv_path)
     return df
 
