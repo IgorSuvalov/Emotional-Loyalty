@@ -1,6 +1,7 @@
 import pandas
 import re
 
+
 def clean_data(df):
 
     df = df.drop(columns=['Item Purchased', 'Location', 'Size', 'Color', 'Shipping Type', 'Payment Method',
@@ -30,10 +31,12 @@ def clean_data(df):
 
     return df
 
+
 # Map yes/no to 0/1
 def yn_to01(s):
     m = s.astype(str).str.strip().str.lower()
-    return m.map({"yes":1,"no":0}).astype(float)
+    return m.map({"yes": 1,"no": 0}).astype(float)
+
 
 # Make the column names consistent
 def to_snake(name):

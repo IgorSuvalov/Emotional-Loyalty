@@ -191,7 +191,10 @@ def thresholds_from_mix(scores, mix):
 
 # Function that assigns the tiers
 def to_tier(s, thr):
-    if s >= thr["Platinum"]: return "Platinum"
-    if s >= thr["Gold"]:     return "Gold"
-    if s >= thr["Silver"]:   return "Silver"
+    if s >= thr["Platinum"]:
+        return "Platinum"
+    if s >= thr["Gold"]:
+        return "Gold"
+    if s >= thr["Silver"]:
+        return "Silver"
     return "Regular"

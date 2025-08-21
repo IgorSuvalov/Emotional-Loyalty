@@ -17,46 +17,61 @@ def load_data():
     df = pd.read_csv(csv_path)
     return df
 
+
 left_col, mid_col, right_col = st.columns(3)
 
 left_col.subheader("Confidence parameter and engage/spend proportion")
 
-mid_col.subheader("The penalties and boosts for the archetypes")
+mid_col.subheader("Final score boosts/penalties based on the archetype")
 
 right_col.subheader("The tier distributions")
 
 lam = left_col.slider('Confidence parameter', min_value=0.0, max_value=1.0, step=0.01, value=0.80)
 left_col.write('Recommended range: 0.70 - 0.90')
 
-spend = left_col.number_input('Spend proportion', value=0.60,step=0.05)
-engage = left_col.number_input('Engage proportion', value=0.40, step=0.05)
 
-if spend + engage != 1.0:
-    st.error('Make the spend and engage sum to 1.0!')
+def update(change):
+    if change == 'Spend proportion':
+        st.session_state['Engage proportion'] = round(1.0 - st.session_state['Spend proportion'], 2)
+    else:
+        st.session_state['Spend proportion'] = round(1.0 - st.session_state['Engage proportion'], 2)
 
-Brand_ch = mid_col.number_input('"Brand Champions"', value=1.10, step=0.01)
-Trans_spend = mid_col.number_input('"Transactional Spenders"', value=0.95, step=0.01)
-Brand_adv = mid_col.number_input('"Brand Advocates"', value=1.15, step=0.01)
-Pass_cons = mid_col.number_input('"Passive Customers"', value=0.90, step=0.01)
+
+spend = left_col.slider(
+    'Spend proportion', value=0.60,step=0.05, key='Spend proportion',
+    on_change=update, args=('Spend proportion',)
+)
+engage = left_col.slider(
+    'Engage proportion', value=0.40, step=0.05, key='Engage proportion',
+    on_change=update, args=('Engage proportion',)
+)
+
+
+Brand_ch = mid_col.slider('"Brand Champions"', min_value=-20, max_value=20, value=5, step=1, format="%d%%")
+Trans_spend = mid_col.slider('"Transactional Spenders"', min_value=-20, max_value=20, value=-5, step=1, format="%d%%")
+Brand_adv = mid_col.slider('"Brand Advocates"', min_value=-20, max_value=20, value=10, step=1, format="%d%%")
+Pass_cons = mid_col.slider('"Passive Customers"', min_value=-20, max_value=20, value=-10, step=1, format="%d%%")
 
 multipliers = {
-    'Brand Champions':        Brand_ch,
-    'Transactional Spenders': Trans_spend,
-    'Brand Advocates':       Brand_adv,
-    'Passive Customers':      Pass_cons
+    'Brand Champions':        1.00 + Brand_ch/100,
+    'Transactional Spenders': 1.00 + Trans_spend/100,
+    'Brand Advocates':       1.00 + Brand_adv/100,
+    'Passive Customers':      1.00 + Pass_cons/100
 }
 
 mult_vals = multipliers.values()
-if min(mult_vals) < 0.80 or max(mult_vals) > 1.20:
-    st.error('The maximum boost/penalty is 20%!')
 
-Plat = right_col.number_input('Platinum', value=0.10, step=0.05)
-Gold = right_col.number_input('Gold', value=0.15, step=0.05)
-Silv = right_col.number_input('Silver', value=0.25, step=0.05)
-Reg = right_col.number_input('Regular', value=0.50, step=0.05)
+Plat = right_col.number_input('Platinum (%)', min_value=0, max_value=100, value=10, step=1)/100
+Gold = right_col.number_input('Gold (%)', min_value=0, max_value=100, value=15, step=1)/100
+Silv = right_col.number_input('Silver (%)', min_value=0, max_value=100, value=25, step=1)/100
+Reg = right_col.number_input('Regular (%)', min_value=0, max_value=100, value=50, step=1)/100
 
 if Plat + Gold + Silv + Reg != 1.00:
     st.error("The tier distinction has to sum to 100%")
+    tier_err = 1
+else:
+    tier_err = 0
+
 
 knobs = {
     "spend":  spend,
@@ -74,13 +89,17 @@ tier_mix = {
 st.subheader("Model's output using parameters above", divider="green")
 
 if st.button("Run the model"):
-    final_df, block_sc, fig = run_loyalty_model(load_data(), knobs, lambda_parameter, multipliers, tier_mix)
+    if tier_err != 0: st.warning("Make sure the values are in the correct ranges first!")
 
-    sample_df = final_df.sample(50, random_state=42)
+    else:
+        final_df, block_sc, fig = run_loyalty_model(
+            load_data(), knobs, lambda_parameter, multipliers, tier_mix
+        )
 
-    sample_df = sample_df.sort_values(by='score', ascending=False)
+        sample_df = final_df.sample(50, random_state=42)
 
-    sample_df = sample_df.drop(columns=["customer_id"])
+        sample_df = sample_df.sort_values(by='score', ascending=False)
 
-    st.dataframe(sample_df, use_container_width=True)
+        sample_df = sample_df.drop(columns=["customer_id"])
 
+        st.dataframe(sample_df, use_container_width=True, selection_mode="multi-row")

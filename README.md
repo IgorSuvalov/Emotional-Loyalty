@@ -23,9 +23,9 @@ https://github.com/user-attachments/assets/b7c41253-8ecd-4755-9d3f-5382150eebb8
 
 ## Parameters
 * **Confidence $\\lambda$** - How much we trust the $U(x)$ contribution vs the archetype contribution. 
-* **Spend vs Engage** - how much we prioritise contributions to the score based on customers' spending habits vs product engagement (must add to 1.00).
-* **Archetype multipliers** - penalties/boosts to the score based on the archetype of the customer. Allowed range 0.80-1.20 (+-20%)
-* **Tier distribution** - proportions of Platinum/Gold/Silver/Regular (must add to 1.00)
+* **Spend vs Engage** - how much we prioritise contributions to the score based on customer's spending habits vs product engagement.
+* **Archetype multipliers** - penalties/boosts to the score based on the archetype of the customer. Allowed range +-20%.
+* **Tier distribution** - proportions of Platinum/Gold/Silver/Regular (must add to 1.00).
 
 ## How to install this project
 
