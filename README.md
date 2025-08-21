@@ -7,8 +7,8 @@ The idea of this project is to provide a customisable model for loyalty scoring 
 * Jupyter notebook going through the model's architecture.
   * Preprocessing of the data
   * Unsupervised learning (archetype detection) via K-means clustering
-  * Function `U(x)` assigning scores based on the customer's engagement/spending. 
-  * Tierer function combining the archetype and `U(x)` contributions in proportions based on the confidence parameter $\\lambda$. Allows for score penalties/boost for each archetype
+  * Function $U(x)$ assigning scores based on the customer's engagement/spending. 
+  * Tierer function combining the archetype and $U(x)$ contributions in proportions based on the confidence parameter $\\lambda$. Allows for score penalties/boost for each archetype
 
 * Interactive Streamlit page allowing to run the model on a subset of the data to see how altering the parameters changes the score/tier distribution. 
 
@@ -22,7 +22,7 @@ The idea of this project is to provide a customisable model for loyalty scoring 
 https://github.com/user-attachments/assets/b7c41253-8ecd-4755-9d3f-5382150eebb8
 
 ## Parameters
-* **Confidence $\\lambda$** - How much we trust the `U(x)` contribution vs the archetype contribution. 
+* **Confidence $\\lambda$** - How much we trust the $U(x)$ contribution vs the archetype contribution. 
 * **Spend vs Engage** - how much we prioritise contributions to the score based on customers' spending habits vs product engagement (must add to 1.00).
 * **Archetype multipliers** - penalties/boosts to the score based on the archetype of the customer. Allowed range 0.80-1.20 (+-20%)
 * **Tier distribution** - proportions of Platinum/Gold/Silver/Regular (must add to 1.00)
