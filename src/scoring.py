@@ -6,7 +6,7 @@ from sklearn.preprocessing import QuantileTransformer
 from sklearn.preprocessing import StandardScaler
 from sklearn.cluster import KMeans
 from sklearn.metrics import silhouette_score
-from src.preprocessing import clean_data, yn_to01, to_snake
+from src.preprocessing import clean_data
 
 
 def run_loyalty_model(df, knobs, lambda_parameter, multipliers, tier_mix):
