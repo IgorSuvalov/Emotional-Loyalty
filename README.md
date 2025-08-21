@@ -19,7 +19,7 @@ The idea of this project is to provide a customisable model for loyalty scoring 
 
 ## Streamlit page [(click here)](https://igorshuv-emotional-loyalty.streamlit.app/) 
 
-https://github.com/user-attachments/assets/b7c41253-8ecd-4755-9d3f-5382150eebb8
+https://github.com/user-attachments/assets/b393e8e9-2e78-408c-b64e-bf9c82394cc2
 
 ## Parameters
 * **Confidence $\\lambda$** - How much we trust the $U(x)$ contribution vs the archetype contribution. 
