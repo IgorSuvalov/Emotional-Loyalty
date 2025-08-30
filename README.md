@@ -43,7 +43,7 @@ https://github.com/user-attachments/assets/b393e8e9-2e78-408c-b64e-bf9c82394cc2
     streamlit run app.py
     ```
 4.  Explore the analysis.
-    Model analysis is available in `Notebooks/notebooks.ipynb`.
+    Model analysis is available in `Notebooks/notebook.ipynb`.
 
 ## Repo layout
 
