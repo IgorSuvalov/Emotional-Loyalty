@@ -39,7 +39,7 @@ def run_loyalty_model(df, knobs, lambda_parameter, multipliers, tier_mix):
     # For engagement, we include sub + promos + rating (also add a cap so promo-chasers do not dominate)
     s_engage = np.nanmean(np.vstack([
         norm_quantile_0_100(nz(cust["sub_rate"])),
-        norm_quantile_0_100(np.minimum(nz(cust["discount_rate"]), 70.0)),
+        norm_quantile_0_100(nz(cust["discount_rate"])),
         norm_quantile_0_100(nz(cust["avg_rating"])),
     ]), axis=0)
 
@@ -52,26 +52,11 @@ def run_loyalty_model(df, knobs, lambda_parameter, multipliers, tier_mix):
 
     block_cols = sorted([c for c in block_scores.columns if c.startswith("s_")])
 
+    # Clustering
     X = block_scores[block_cols].values
-    Xs = StandardScaler().fit_transform(X)
-
-    # Perform the K-means clustering
-    best_k, best_sil, best_labels = None, -1, None
-    for k in range(3, 8):
-        km = KMeans(n_clusters=k, n_init=10, random_state=42)
-        labels = km.fit_predict(Xs)
-        sil = silhouette_score(Xs, labels)
-        if sil > best_sil:
-            best_k, best_sil, best_labels = k, sil, labels
-
+    km = KMeans(n_clusters=4, n_init=10, random_state=42)
+    best_labels = km.fit_predict(StandardScaler().fit_transform(X))
     block_scores["cluster"] = best_labels
-
-    # Prepare the plot
-    fig, ax = plt.subplots(figsize=(6, 5))
-    ax.scatter(block_scores["s_spend"], block_scores["s_engage"], s=20, c=best_labels, cmap='viridis')
-    ax.set_title("Customer Archetypes")
-    ax.set_xlabel("Spend Score")
-    ax.set_ylabel("Engagement Score")
 
     # Compute the unsupervised contribution, scale it and assigns a score based on the cluster to each consumer
     row_eq = block_scores[['s_spend', 's_engage']].mean(axis=1)
@@ -149,7 +134,7 @@ def run_loyalty_model(df, knobs, lambda_parameter, multipliers, tier_mix):
     final_df["archetype"] = final_df["customer_id"].map(archetype)
     final_df['score'] = final_df['score'].round(1)
 
-    return final_df, block_scores, fig
+    return final_df, block_scores
 
 
 # Define a normalisation function
@@ -179,8 +164,8 @@ def U_from_knobs(df, weights):
 
 # Define the function that gives us tier cutoffs
 def thresholds_from_mix(scores, mix):
-    cum = 0;
-    thr = {};
+    cum = 0
+    thr = {}
     order = ["Platinum", "Gold", "Silver", "Regular"]
     for lvl in order[:-1]:
         thr[lvl] = np.quantile(scores, 1 - (cum + mix[lvl]))

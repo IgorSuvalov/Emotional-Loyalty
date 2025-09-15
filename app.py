@@ -92,7 +92,7 @@ if st.button("Run the model"):
     if tier_err != 0: st.warning("Make sure the values are in the correct ranges first!")
 
     else:
-        final_df, block_sc, fig = run_loyalty_model(
+        final_df, block_sc= run_loyalty_model(
             load_data(), knobs, lambda_parameter, multipliers, tier_mix
         )
 
