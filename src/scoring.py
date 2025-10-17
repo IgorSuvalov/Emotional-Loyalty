@@ -1,11 +1,8 @@
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
-
 from sklearn.preprocessing import QuantileTransformer
 from sklearn.preprocessing import StandardScaler
 from sklearn.cluster import KMeans
-from sklearn.metrics import silhouette_score
 from src.preprocessing import clean_data
 
 
@@ -18,7 +15,8 @@ def run_loyalty_model(df, knobs, lambda_parameter, multipliers, tier_mix):
         if c in cust.columns:
             cust[c] = pd.to_numeric(cust[c], errors="coerce")
 
-    # Since the data is synthetic, we only have one row per consumer, so we assume the last purchase is the average amount that they usually spend
+    # Since the data is synthetic, we only have one row per consumer, so we assume the last purchase is the average
+    # amount that they usually spend
     cust["freq_per_year"] = cust["frequency_of_purchases"].fillna(1.0)
     cust["total_spend_est"] = (cust["purchase_amount_usd"].fillna(0) * cust["freq_per_year"])
     cust["avg_purchase"] = cust["purchase_amount_usd"].fillna(0)
