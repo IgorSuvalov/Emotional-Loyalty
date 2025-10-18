@@ -1,5 +1,6 @@
 from src.scoring import run_loyalty_model
 from src.agent_graph import build_graph
+from dotenv import load_dotenv; load_dotenv()
 import streamlit as st
 import pandas as pd
 import os
@@ -15,8 +16,8 @@ st.divider()
 def load_data():
     app_dir = os.path.dirname(os.path.abspath(__file__))
     csv_path = os.path.join(app_dir, "customer-shopping-latest-trends-dataset", "shopping_trends.csv")
-    df = pd.read_csv(csv_path)
-    return df
+    data = pd.read_csv(csv_path)
+    return data
 
 
 tab_manual, tab_agent = st.tabs(["Manual model", "Agent-driven model"])
@@ -101,11 +102,8 @@ with tab_manual:
             )
 
             sample_df = final_df.sample(50, random_state=42)
-
             sample_df = sample_df.sort_values(by='score', ascending=False)
-
             sample_df = sample_df.drop(columns=["customer_id"])
-
             st.dataframe(sample_df, use_container_width=True, selection_mode="multi-row")
 
 with tab_agent:
@@ -148,9 +146,6 @@ with tab_agent:
             )
 
             sample_df = final_df.sample(50, random_state=42)
-
             sample_df = sample_df.sort_values(by='score', ascending=False)
-
             sample_df = sample_df.drop(columns=["customer_id"])
-
             st.dataframe(sample_df, use_container_width=True, selection_mode="multi-row")

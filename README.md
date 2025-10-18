@@ -49,19 +49,23 @@ https://github.com/user-attachments/assets/b393e8e9-2e78-408c-b64e-bf9c82394cc2
 
 ```
 Emotional-Loyalty/
-├───app.py  #streamlit app
-├───customer-shopping-latest-trends-dataset
-│   └───shopping_trends.csv
-├───Notebooks/
-│   └───notebook.ipynb  #analysis
-├───results/
-│   └───demo_config.json
-├───src/
-│   ├───__init__.py
-│   ├───preprocessing.py
-│   └───scoring.py
-├───requirements.txt  #dependencies 
-└───README.md
+
+    ├── README.md
+    ├── app.py
+    ├── requirements.txt
+    ├── Notebooks/
+    │   └── notebook.ipynb
+    ├── results/
+    │   └── demo_config.json
+    └── src/
+        ├── __init__.py
+        ├── agent_graph.py
+        ├── agent_tools.py
+        ├── apikey.py
+        ├── llm.py
+        ├── preprocessing.py
+        └── scoring.py
+
 
 
 ```
