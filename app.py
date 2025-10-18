@@ -1,6 +1,6 @@
+from dotenv import load_dotenv; load_dotenv()
 from src.scoring import run_loyalty_model
 from src.agent_graph import build_graph
-from dotenv import load_dotenv; load_dotenv()
 import streamlit as st
 import pandas as pd
 import os
