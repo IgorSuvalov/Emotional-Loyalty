@@ -1,4 +1,9 @@
-from dotenv import load_dotenv; load_dotenv()
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except Exception:
+    pass
+
 from src.scoring import run_loyalty_model
 from src.agent_graph import build_graph
 import streamlit as st

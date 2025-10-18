@@ -6,3 +6,4 @@ opendatasets==0.1.22
 streamlit==1.37.0
 langgraph == 0.6.10
 langchain-google-genai == 2.1.12
+python-dotenv==1.1.1
