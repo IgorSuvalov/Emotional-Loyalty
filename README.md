@@ -14,6 +14,7 @@ The idea of this project is to provide a customisable model for loyalty scoring 
 
 ## Tech stack
 * **Modelling:** Python, scikit-learn, Pandas, NumPy
+* **AI Agent:** LangChain, Gemini API
 * **Interactive app:** Streamlit
 * **Data visualisation:** Matplotlib
 
@@ -49,22 +50,22 @@ https://github.com/user-attachments/assets/b393e8e9-2e78-408c-b64e-bf9c82394cc2
 
 ```
 Emotional-Loyalty/
-
     ├── README.md
     ├── app.py
     ├── requirements.txt
-    ├── Notebooks/
-    │   └── notebook.ipynb
+    ├── .env.example
     ├── results/
     │   └── demo_config.json
-    └── src/
-        ├── __init__.py
-        ├── agent_graph.py
-        ├── agent_tools.py
-        ├── apikey.py
-        ├── llm.py
-        ├── preprocessing.py
-        └── scoring.py
+    ├── src/
+    │   ├── __init__.py
+    │   ├── agent_graph.py
+    │   ├── agent_tools.py
+    │   ├── llm.py
+    │   ├── preprocessing.py
+    │   └── scoring.py
+    └── .devcontainer/
+        └── devcontainer.json
+
 
 
 
