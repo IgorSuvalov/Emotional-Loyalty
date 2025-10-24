@@ -122,7 +122,7 @@ with tab_agent:
         st.session_state["agent_graph"] = app
     df = load_data()
 
-    user_input = st.chat_input("Ask the loyalty agent for help:", key="user_input")
+    user_input = st.chat_input("Ask the agent to explain the model or to suggest parameters for your business:", key="user_input")
     if user_input:
         init_state = {"user_goal": user_input, "df": df}
         output = app.invoke(init_state)
